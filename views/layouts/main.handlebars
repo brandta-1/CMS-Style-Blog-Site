@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C14</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <nav>
+
+    <a href="/">home</a>
+    
+    {{#if logged_in}}
+    <a href="/dashboard">dashboard</a>
+    {{else}}
+     <a href="/login">dashboard</a>
+    {{/if}}
+    
+
+    {{#if logged_in}}
+    <button class="no-button" id="logout">logout</button>
+    {{else}}
+    <a href="/login">login</a>
+    {{/if}}
+
+
+
+  </nav>
+
+
+  {{{ body }}}
+
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+  <script src="../js/dashboard.js"></script>
+
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+
+</body>
+
+</html>
