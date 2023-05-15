@@ -8,6 +8,8 @@ router.get('/', async (req, res) => {
 
     try {
 
+        console.log(req.session.logged_in)
+
         const postData = await Post.findAll({
             include: [
                 {
@@ -67,18 +69,28 @@ router.get('/dashboard', withAuth, async (req, res) => {
                 }
             });
 
-            const commPostDataTitles = Object.values(commPostData).map(i => i.title)
 
-            user.comments = user.comments.map((i, j) => (
+            //didnt realize sequelize has built-in getters when i wrote this...
+            async function titles(x) {
+
+                const theTitle = await Post.findByPk(x, {
+                    raw: true,
+                    attributes: ['title']
+                })
+
+                return theTitle.title
+            }
+
+            user.comments = await Promise.all(user.comments.map(async (i) => (
                 {
                     ...i,
-                    title: commPostDataTitles[j]
+                    title: await titles(i.post_id)
                 }
-            ));
+            )));
         }
 
         console.log(user);
-        res.render('dashboard', user);
+        res.render('dashboard', {...user, logged_in: req.session.logged_in});
 
     } catch (err) {
         res.status(500).json(err);
@@ -87,9 +99,9 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
 router.get('/login', (req, res) => {
     if (req.session.logged_in) {
-        res.redirect('/profile');
+        res.redirect('/dashboard');
         return;
-      }
+    }
     res.render('login');
 })
 

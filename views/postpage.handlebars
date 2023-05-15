@@ -1,25 +1,28 @@
-<h1> Title: {{title}} </a></h1>
-<h2> Content: {{content}}</h2>
-{{#if owner}}
-{{> test-partial item=this label="Post"}}
-{{/if}}
-<h3> Age: {{createdAt}}</h3>
-<h4> User: {{user.name}}</h4>
+<div id="postpage">
+    <h1> {{title}} by {{user.name}}</a></h1>
+     <h5>{{createdAt}}</h5>
+    <h2>{{content}}</h2>
+    {{#if owner}}
+    {{> test-partial item=this label="Post"}}
+    {{/if}}
+   
+   
 
-<div class="dis-aft">
-    <form class="comment-form" id="{{id}}">
+    <div class="dis-aft">
+        <form class="comment-form" id="{{id}}">
 
-        <label for="comment-content">New Comment Content:</label>
-        <input class="form-input" type="text" id="comment-content" name="comment-content" />
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+            <label for="comment-content">New Comment Content:</label>
+            <input class="form-input" type="text" id="comment-content" name="comment-content" />
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    <button class="up-btn">Add New Comment</button>
+
+    {{#each comments as |comment|}}
+    <h5> Comments: {{comment.content}}</h5>
+    <h6> Posted by: {{comment.user.name}} on {{comment.createdAt}}.</h6>
+    {{#if comment.isOwner}}
+    {{> test-partial item=this label="Comment"}}
+    {{/if}}
+    {{/each}}
 </div>
-<button class="up-btn">Add New Comment</button>
-
-{{#each comments as |comment|}}
-<h5> Comments: {{comment.content}}</h5>
-<h6> Posted by: {{comment.user.name}} on {{comment.createdAt}}.</h6>
-{{#if comment.isOwner}}
-{{> test-partial item=this label="Comment"}}
-{{/if}}
-{{/each}}

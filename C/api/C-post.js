@@ -36,6 +36,8 @@ router.delete('/:id', withAuth, async (req, res) => {
             });
 
         } else if (req.body.objType == "Comment") {
+
+            console.log("HEEEEEEEEEEELP")
           
             delData = await Comment.destroy({
                 where: {
@@ -62,6 +64,8 @@ router.delete('/:id', withAuth, async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
+
+        console.log(req.body)
 
         let upData = 0;
 

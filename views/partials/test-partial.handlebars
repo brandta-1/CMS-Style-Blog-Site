@@ -4,18 +4,21 @@
     {{else}}
     <h3 id="Post"> <a href="/postpage/{{item.id}}"> {{item.title}}</a>
         {{/if}}
-        {{/if}}
-        <div class="dis-aft">
-            <form class="up-form" id="{{label}}" name="{{item.id}}">
-                {{#if db}}
-                <h6>Current Content: </h6>
-                <h5>{{item.content}}</h5>
-                {{/if}}
-                <label for="up-content">Content:</label>
-                <input class="form-input" type="text" id="{{label}} {{item.id}}" />
-                <button type="submit" class="btn btn-primary">Commit Update</button>
-            </form>
-        </div>
-        <button class="up-btn" data-id="{{item.id}}">UPDATE</button>
-        <button class="del-btn" data-id="{{item.id}}">DELETE</button>
+        {{else}}
+        <div id="Comment">
+            {{/if}}
+            <div class="dis-aft">
+                <form class="up-form" id="{{label}}" name="{{item.id}}">
+                    {{#if db}}
+                    <h6>Current Content: </h6>
+                    <h5>{{item.content}}</h5>
+                    {{/if}}
+                    <label for="up-content">Content:</label>
+                    <input class="form-input" type="text" id="{{label}} {{item.id}}" />
+                    <button type="submit" class="btn btn-primary">Commit Update</button>
+                </form>
+            </div>
+            <button class="up-btn" data-id="{{item.id}}">UPDATE</button>
+            <button class="del-btn" data-id="{{item.id}}">DELETE</button>
+            <button class="can-btn dis-aft" data-id="{{item.id}}">CANCEL</button>
     </h3>

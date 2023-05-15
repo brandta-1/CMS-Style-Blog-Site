@@ -1,29 +1,31 @@
-<h2> Welcome to your dashboard {{name}}</h2>
+<div id="dashboard">
+    <h2> Welcome to your dashboard {{name}}</h2>
 
-<form class="post-form">
-    <label for="post-title">Title:</label>
-    <input class="form-input" type="text" id="post-title" name="post-title" />
+    <form class="post-form">
+        <label for="post-title">Title:</label>
+        <input class="form-input" type="text" id="post-title" name="post-title" />
 
-    <label for="post-content">Content:</label>
-    <input class="form-input" type="text" id="post-content" name="post-content" />
+        <label for="post-content">Content:</label>
+        <input class="form-input" type="text" id="post-content" name="post-content" />
 
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 
-<div id="post-h">
-<h2>Post history:</h2>
-{{#if posts.length}}
-{{#each posts as |post|}}
-    {{> test-partial item=post label="Post" db=1}}
-{{/each}}
-{{/if}}
-</div>
+    <div id="post-h">
+        <h2>Post history:</h2>
+        {{#if posts.length}}
+        {{#each posts as |post|}}
+        {{> test-partial item=post label="Post" db=1}}
+        {{/each}}
+        {{/if}}
+    </div>
 
-<div id="comment-h">
-<h2>Comment history:</h2>
-{{#if comments.length}}
-{{#each comments as |comment|}}
-    {{> test-partial item=comment label="Comment" db=1}} 
-{{/each}}
-{{/if}}
+    <div id="comment-h">
+        <h2>Comment history:</h2>
+        {{#if comments.length}}
+        {{#each comments as |comment|}}
+        {{> test-partial item=comment label="Comment" db=1}}
+        {{/each}}
+        {{/if}}
+    </div>
 </div>

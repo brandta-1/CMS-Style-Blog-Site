@@ -16,6 +16,7 @@
     "prettier": "^2.8.8"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
   }
 }
