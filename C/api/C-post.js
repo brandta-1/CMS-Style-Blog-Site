@@ -6,16 +6,12 @@ const withAuth = require('../../utils/auth');
 router.post('/', withAuth, async (req, res) => {
     try {
 
-
         const newPost = await Post.create({
             ...req.body,
-            //needs to be session id
             user_id: req.session.user_id
         });
 
         res.status(200).json(newPost);
-
-
     } catch (err) {
         res.status(400).json(err);
     }
@@ -24,7 +20,6 @@ router.post('/', withAuth, async (req, res) => {
 router.delete('/:id', withAuth, async (req, res) => {
     try {
 
-      
         let delData = 0;
 
         if (req.body.objType == "Post") {
@@ -37,16 +32,12 @@ router.delete('/:id', withAuth, async (req, res) => {
 
         } else if (req.body.objType == "Comment") {
 
-            console.log("HEEEEEEEEEEELP")
-          
             delData = await Comment.destroy({
                 where: {
                     id: req.params.id,
-                    //needs to be session id
                     user_id: req.session.user_id
                 }
             });
-
         }
 
         if (delData == 0) {
@@ -61,10 +52,10 @@ router.delete('/:id', withAuth, async (req, res) => {
     }
 });
 
-
 router.put('/:id', async (req, res) => {
     try {
 
+        //determine if the request object is a post or a comment
         console.log(req.body)
 
         let upData = 0;
@@ -101,7 +92,5 @@ router.put('/:id', async (req, res) => {
         res.status(400).json(err)
     }
 })
-
-
 
 module.exports = router;

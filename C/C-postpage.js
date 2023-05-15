@@ -2,9 +2,10 @@ const router = require('express').Router();
 const { Post, User, Comment } = require('../M');
 const withAuth = require('../utils/auth');
 
-router.get('/:id', withAuth, async (req,res) => {
+router.get('/:id', withAuth, async (req, res) => {
 
     try {
+        //get the post and its user, and its comments and their users
         const postData = await Post.findByPk(req.params.id, {
             include: [
                 {
@@ -19,23 +20,19 @@ router.get('/:id', withAuth, async (req,res) => {
 
         const post = postData.get({ plain: true });
 
-        //TODO replace 3 with req.session.user_id
         const owner = Boolean(post.user_id == req.session.user_id);
 
+        //check if the post owner also owns any other comments
         post.comments = post.comments.map((i) => ({
             ...i,
             isOwner: Boolean(i.user_id == req.session.user_id)
         }))
 
-        res.render('postpage' , {...post, owner} );
-
-        console.log(post);
+        res.render('postpage', { ...post, owner });
 
     } catch (err) {
         res.status(500).json(err);
     }
-
-    
 });
 
 

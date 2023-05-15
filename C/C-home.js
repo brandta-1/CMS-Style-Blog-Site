@@ -3,12 +3,9 @@ const { Post, User, Comment } = require('../M');
 const { Op } = require('sequelize');
 const withAuth = require('../utils/auth');
 
-
 router.get('/', async (req, res) => {
 
     try {
-
-        console.log(req.session.logged_in)
 
         const postData = await Post.findAll({
             include: [
@@ -34,10 +31,10 @@ router.get('/', async (req, res) => {
 
 });
 
-//TODO: change :id req param placeholder to session id instead
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
-        //TODO: see above for this line as well
+
+        //get the user's posts
         const userData = await User.findByPk(req.session.user_id, {
             attributes: { exclude: ['password'] },
             include: [
@@ -51,24 +48,10 @@ router.get('/dashboard', withAuth, async (req, res) => {
             ]
         });
 
-        //const commentPosts = await Post.findByPk()
-
         let user = { ...userData.get({ plain: true }) };
 
-        console.log(user);
-
+        //if the user has comments, find the titles of the posts that the comments belongs to
         if (userData.get({ plain: true }).comments.length) {
-
-            const commPostData = await Post.findAll({
-                raw: true,
-                attributes: ['title'],
-                where: {
-                    id: {
-                        [Op.or]: user.comments.map((i) => i.post_id)
-                    }
-                }
-            });
-
 
             //didnt realize sequelize has built-in getters when i wrote this...
             async function titles(x) {
@@ -89,8 +72,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
             )));
         }
 
-        console.log(user);
-        res.render('dashboard', {...user, logged_in: req.session.logged_in});
+        res.render('dashboard', { ...user, logged_in: req.session.logged_in });
 
     } catch (err) {
         res.status(500).json(err);

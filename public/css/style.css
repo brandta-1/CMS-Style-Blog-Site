@@ -65,7 +65,9 @@ nav a:hover {
 #dashboard,
 .title,
 .comm-card,
-#postpage {
+#postpage,
+.row,
+input {
   color: #fff;
   text-decoration: none;
 }

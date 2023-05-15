@@ -1,4 +1,4 @@
-
+//send new post data to back-end
 const formHandler = async (event) => {
     event.preventDefault();
 
@@ -25,6 +25,7 @@ const formHandler = async (event) => {
     }
 };
 
+//send delete request to back-end
 const delHandler = async (event) => {
 
     let objType = $(event.target).parent().attr('id');
@@ -46,15 +47,14 @@ const delHandler = async (event) => {
     }
 };
 
+//send update request to back-end
 const upHandler = async (event) => {
     event.preventDefault();
 
+    //determine if the request is for a post or a comment
     const objType = $(event.target).attr("id");
     const id = $(event.target).attr("name");
     const content = document.getElementById(`${objType} ${id}`).value;
-
-
-    //just render the partial with div display none
 
     const res = await fetch(`/api/posts/${id}`, {
         method: 'PUT',
@@ -69,11 +69,9 @@ const upHandler = async (event) => {
     } else {
         location.reload();
     }
-
-
-    $('#up-content').val();
 }
 
+//add a comment to a post
 const commentHandler = async (event) => {
     event.preventDefault();
 
@@ -105,10 +103,10 @@ $('.del-btn').on("click", delHandler);
 
 $('.up-btn').on("click", (event) => {
     $(event.target).prev().css("display", "block");
-    $(event.target).next().next().css('display','inline');
+    $(event.target).next().next().css('display', 'inline');
 });
 
-$('.can-btn').on('click',(event) => {
+$('.can-btn').on('click', (event) => {
     $(event.target).prev().prev().prev().css("display", "none");
-    $('.can-btn').css('display','none');
+    $('.can-btn').css('display', 'none');
 })

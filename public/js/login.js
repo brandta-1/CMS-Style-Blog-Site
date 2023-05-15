@@ -5,8 +5,9 @@ const loginFormHandler = async (event) => {
     const email = document.querySelector('#email-login').value.trim();
     const password = document.querySelector('#password-login').value.trim();
   
+    //if there is user input in both fields, then send that data as a POST request to back-end
     if (email && password) {
-      // Send a POST request to the API endpoint
+      
       const response = await fetch('/api/users/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
@@ -14,7 +15,7 @@ const loginFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        // If successful, redirect the browser to the profile page
+        
         document.location.replace('/dashboard');
       } else {
         alert(response.statusText);

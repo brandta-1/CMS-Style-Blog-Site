@@ -1,3 +1,5 @@
+//use JAWSBD on the live deployment, else use variables in the .env file
+
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
