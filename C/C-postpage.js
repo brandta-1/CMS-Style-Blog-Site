@@ -28,7 +28,7 @@ router.get('/:id', withAuth, async (req, res) => {
             isOwner: Boolean(i.user_id == req.session.user_id)
         }))
 
-        res.render('postpage', { ...post, owner });
+        res.render('postpage', { ...post, owner, logged_in: req.session.logged_in });
 
     } catch (err) {
         res.status(500).json(err);
